@@ -96,12 +96,9 @@ class MessageProvider extends ServiceProvider
 
 ## The `boot()` method
 > Once a dependency has been loaded into the container using a service provider, and the container has been built, 
-> we may want to interact with it prior to calling it from within the application. This includes utilizing the 
-> [Context API](https://github.com/FrameworkFactoryPHP/docs/blob/main/CONTEXT_API.md) and executing [lifecycle hooks](https://github.com/FrameworkFactoryPHP/docs/blob/main/LIFECYCLE_HOOKS.md). This is where
-> the `boot()` method comes in.
-> 
-> The `boot()` method of a service container is executed after the container has been built, and all dependencies have 
-> been loaded into it; allowing them to be interacted with.
+> we may want to interact with it prior to calling it from within the application. The `boot()` method of a service 
+> container is executed after the container has been built, and all dependencies have been loaded into it which allows 
+> them to be interacted with.
 
 ```php
 <?php
