@@ -10,12 +10,9 @@
 > that uses them.
 
 ## Creating Accessors
-> All accessor classes **_must_** extend the `FrameworkFactory\Application\Accessor` class in order to benefit form the
-> accessor system. Additionally, the accessor class **_must_** assign the `$key` property which represents the ID of
-> the service as it has been loaded into the container within a registered service provider.
-
-> **A quick note:** We are using the `Message` service class that is shown in the [Services](https://github.com/FrameworkFactoryPHP/docs/blob/main/SERVICES.md)
-> section of the docs.
+> All accessor classes **_must_** extend the `FrameworkFactory\Application\Accessor` class in order to fully utilize the
+> accessor system.
+> 
 ```php
 <?php
 
@@ -29,9 +26,39 @@ use FrameworkFactory\Application\Accessor;
  */
 class Message extends Accessor
 {
-    protected static string $key = MessageService::class;
+    // ...
 }
 ```
+
+### Bindings Resolution
+> There are two ways that an Accessor class can gain access to services that have been bound to the container. 
+
+The first method is to use the `ResolvesFor` attribute on the accessor class itself with the value of the ID for the 
+service you want to load.
+```php
+use App\Services\Message as MessageService;
+use FrameworkFactory\Application\Accessor;
+use FrameworkFactory\Support\Attributes;
+
+#[Attributes\Accessors\ResolvesFor(MessageService::class)]
+class Message  extends Accessor
+{
+    // ...    
+}
+```
+
+The next method is to assign the `$key` property with the value of the ID for the service you want to load.
+```php
+use App\Services\Message as MessageService;
+use FrameworkFactory\Application\Accessor;
+
+class Message  extends Accessor
+{
+    protected static string ?$key = MessageService::class;
+}
+```
+> **Important note:** if you attempt to use both methods on one accessor class, the value of the `$key` property will 
+> take precedence and therefor supersede what has been loaded into `ResolvesFor`.
 
 # Using Accessors
 > Using an accessor class to interact with a dependency that has been  loaded into the container, is quite simple. All
