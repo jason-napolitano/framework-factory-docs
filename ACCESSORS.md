@@ -36,11 +36,11 @@ class Message extends Accessor
 The first method is to use the `ResolvesFor` attribute on the accessor class itself with the value of the ID for the 
 service you want to load.
 ```php
+use FrameworkFactory\Attributes\Accessors\ResolvesFor;
 use App\Services\Message as MessageService;
 use FrameworkFactory\Application\Accessor;
-use FrameworkFactory\Support\Attributes;
 
-#[Attributes\Accessors\ResolvesFor(MessageService::class)]
+#[ResolvesFor(MessageService::class)]
 class Message  extends Accessor
 {
     // ...    
