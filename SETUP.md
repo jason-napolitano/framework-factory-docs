@@ -47,6 +47,24 @@ $app->withProviders([
 ]);
 ```
 
+
+### Auto-discovery
+> Service Providers can be auto-discovered and do not need be added to the `withProviders()` method, and the `withProviders()` method can be omitted. 
+> In order to achieve this, all auto-discoverable providers need to live within the `App\Providers` namespace. Any auto-discoverable providers __must__
+> either end with `ServiceProvider`, or `Provider` to be properly discovered - EG: `LoggerServiceProvider` or `LoggerProvider`. Any classes that do not 
+> contain either suffix will be ignored by the application bootstrap process and will not be added to the providers list.
+> 
+> The main application namespace and its corresponding directory can be customized upon the creation of the `$app` instance. 
+> It is important to note that the `appDirectory` parameter is _relative_ to the assigned `baseDir` path.
+```php
+<?php
+ use FrameworkFactory\Application;
+
+$app = Application::build(basePath: __DIR__ . '/../', appNamespace: 'App', appDirectory: 'app');
+```
+> Now any classes within the `App\Providers` directory that end with either `Provider` or `ServiceProvider` will be 
+> automatically added and their services will be loaded into to the container.
+
 ## Configuration
 > Each application instance has the ability to set configurable options. These configuration options are completely dynamic
 > and can be assigned and retrieved from the application as long as they all follow the same nomenclature. 
